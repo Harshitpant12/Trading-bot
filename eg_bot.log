@@ -1,0 +1,14 @@
+2025-10-02 09:01:11,547 | INFO | Initialized Binance client (testnet=True)
+2025-10-02 09:01:11,854 | INFO | API CALL: futures_account_balance | params: {}
+2025-10-02 09:01:12,010 | INFO | API RESPONSE: [{'accountAlias': 'test_acct', 'asset': 'USDT', 'balance': '10000.00000000'}]
+
+2025-10-02 09:01:45,539 | INFO | API CALL: futures_create_order(MARKET) | params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'quantity': 0.02}
+2025-10-02 09:01:45,812 | INFO | API RESPONSE: {'orderId': 12345678, 'symbol': 'BTCUSDT', 'status': 'FILLED', 'side': 'BUY', 'type': 'MARKET', 'executedQty': '0.02'}
+
+2025-10-02 09:02:10,124 | INFO | API CALL: futures_create_order(LIMIT) | params: {'symbol': 'BTCUSDT', 'side': 'SELL', 'quantity': 0.02, 'price': '61000', 'timeInForce': 'GTC'}
+2025-10-02 09:02:10,355 | INFO | API RESPONSE: {'orderId': 12345679, 'symbol': 'BTCUSDT', 'status': 'NEW', 'side': 'SELL', 'type': 'LIMIT', 'price': '61000', 'origQty': '0.02'}
+
+2025-10-02 09:02:45,901 | INFO | API CALL: futures_create_order(STOP_MARKET) | params: {'symbol': 'BTCUSDT', 'side': 'SELL', 'quantity': 0.02, 'stopPrice': '59000'}
+2025-10-02 09:02:46,110 | INFO | API RESPONSE: {'orderId': 12345680, 'symbol': 'BTCUSDT', 'status': 'NEW', 'side': 'SELL', 'type': 'STOP_MARKET', 'stopPrice': '59000', 'origQty': '0.02'}
+
+2025-10-02 09:03:00,001 | ERROR | API ERR: BinanceAPIException(500, 'Unknown error occurred while processing the request.')
