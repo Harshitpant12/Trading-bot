@@ -1,6 +1,6 @@
 # Simplified Binance Futures Testnet Trading Bot
 
-A simple Python bot to place Market, Limit, and Stop orders on the **Binance Futures Testnet (USDT-M)**.
+A simple Python bot to place Market, Limit, and Stop orders on the **Binance Futures Testnet**.
 
 ---
 
