@@ -22,8 +22,8 @@ python bot.py
 ```
 # Features
 
--Place Market orders (BUY/SELL)
--Place Limit orders (BUY/SELL)
--Place Stop-Market orders (for stop-loss)
--Check account balance
--Logging of all API requests, responses, and errors in bot.log
+- Place Market orders (BUY/SELL)
+- Place Limit orders (BUY/SELL)
+- Place Stop-Market orders (for stop-loss)
+- Check account balance
+- Logging of all API requests, responses, and errors in bot.log
