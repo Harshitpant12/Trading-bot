@@ -1,35 +1,15 @@
-"""
-bot.py - Simplified Binance Futures Testnet Trading Bot (starter)
-
-Requirements:
-    pip install python-binance
-
-Usage:
-    1) Put your TESTNET API_KEY and API_SECRET below (or set environment variables).
-    2) Run: python bot.py
-"""
-
+#Trading Bot Binance Testnet
 import os
 import time
 import logging
 from typing import Optional, Dict, Any
-
 from binance.client import Client
 from binance.exceptions import BinanceAPIException, BinanceRequestException
 
-# ---------------------------
-# CONFIG - Put your keys here
-# ---------------------------
-API_KEY = "ea29ece2f69ce47ff12db435f61c84fc7f3a62a272c55f5fdd64608486d96865"
-API_SECRET = "111b0740ef6b880e695cc9e8c2918f04ac85fec385acf388beb20253049fd340"
+API_KEY = "pd29ece4f49ce47ff12ui435f(Your_api_key)" #Here we've to put api key from testnet account
+API_SECRET = "345b0740ef6b550e695rr9e(Your_api_secret)" #Here Secret key
 
-# or you can set environment variables and uncomment:
-# API_KEY = os.getenv("BINANCE_TEST_API_KEY")
-# API_SECRET = os.getenv("BINANCE_TEST_API_SECRET")
-
-# ---------------------------
-# Logging setup
-# ---------------------------
+#Log file
 LOG_FILE = "bot.log"
 logging.basicConfig(
     level=logging.INFO,
@@ -41,25 +21,16 @@ logging.basicConfig(
 )
 logger = logging.getLogger("BasicBot")
 
-
-# ---------------------------
-# BasicBot class
-# ---------------------------
+#Bot Class
 class BasicBot:
     def __init__(self, api_key: str, api_secret: str, testnet: bool = True):
         if not api_key or not api_secret:
             raise ValueError("API key and secret must be provided.")
-        # init client
-        # Use python-binance Client and override FUTURES_URL for testnet
         self.client = Client(api_key, api_secret, testnet=testnet)
-        # Ensure futures endpoint points to testnet base URL
-        # (This attribute override is commonly used for python-binance with futures testnet)
         if testnet:
-            # REST base for futures testnet
             self.client.FUTURES_URL = "https://testnet.binancefuture.com/fapi"
         logger.info("Initialized Binance client (testnet=%s)", testnet)
 
-    # ---- utility ----
     def _log_api_call(self, name: str, params: Dict[str, Any], resp: Any = None, err: Optional[Exception] = None):
         """Structured logging for requests/responses/errors"""
         logger.info("API CALL: %s | params: %s", name, params)
@@ -68,7 +39,7 @@ class BasicBot:
         if err is not None:
             logger.error("API ERR: %s", repr(err))
 
-    # ---- account / balance ----
+    #balance
     def get_futures_balance(self) -> Dict[str, Any]:
         """Returns futures account balance (list of assets with balance)."""
         try:
@@ -80,7 +51,7 @@ class BasicBot:
             self._log_api_call("futures_account_balance", {}, err=e)
             raise
 
-    # ---- market data ----
+    #Symbol Price
     def get_symbol_price(self, symbol: str) -> float:
         """Get latest mark/price for a symbol (USDT pairs e.g., BTCUSDT)."""
         try:
@@ -92,7 +63,7 @@ class BasicBot:
             self._log_api_call("futures_symbol_ticker", {"symbol": symbol}, err=e)
             raise
 
-    # ---- orders ----
+    #Orders
     def place_market_order(self, symbol: str, side: str, quantity: float, reduce_only: bool = False, recv_window: Optional[int] = None):
         """
         Place a market order on futures.
@@ -147,7 +118,6 @@ class BasicBot:
                 "stopPrice": stopPrice,
                 "closePosition": str(closePosition).lower()
             }
-            # If quantity is required (not closing full position), include it
             if not closePosition:
                 params["quantity"] = quantity
             resp = self.client.futures_create_order(**params)
@@ -208,13 +178,9 @@ class BasicBot:
             self._log_api_call("futures_cancel_order", params, err=e)
             raise
 
-
-# ---------------------------
-# Example usage (simple CLI)
-# ---------------------------
+#The main function
 def main():
     print("Starting BasicBot (Binance Futures Testnet starter)")
-    # Use keys from the top of file or environment variables
     api_key = API_KEY
     api_secret = API_SECRET
     if not api_key or not api_secret:
@@ -223,7 +189,6 @@ def main():
 
     bot = BasicBot(api_key, api_secret, testnet=True)
 
-    # Example: print balance
     try:
         balance = bot.get_futures_balance()
         print("Futures balance snapshot (first few entries):")
@@ -232,7 +197,6 @@ def main():
     except Exception as e:
         print("Could not fetch balance - check logs:", e)
 
-    # Example interactive flow (simple)
     while True:
         print("\nOptions: [1] Place Market Order  [2] Place Limit Order  [3] Place Stop Loss  [4] Exit")
         choice = input("Choice: ").strip()
