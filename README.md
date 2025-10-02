@@ -20,7 +20,7 @@ pip install -r requirements.txt
 ```
 python bot.py
 ```
-#Features
+# Features
 
 -Place Market orders (BUY/SELL)
 -Place Limit orders (BUY/SELL)
